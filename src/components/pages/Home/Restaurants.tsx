@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../ui/Button';
 import { SortByModal, CuisineModal } from './';
 import filters from '../../../data/filters.json';
@@ -25,6 +26,7 @@ interface RestaurantsProps {
 const Restaurants: React.FC<RestaurantsProps> = ({ restaurants, selectedFilter, setSelectedFilter }) => {
   const [isSortByModalOpen, setIsSortByModalOpen] = useState(false);
   const [isCuisineModalOpen, setIsCuisineModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleFilterClick = (id: string) => {
     if (id === 'sort') {
@@ -32,6 +34,10 @@ const Restaurants: React.FC<RestaurantsProps> = ({ restaurants, selectedFilter, 
     } else if (id === 'cuisine') {
       setIsCuisineModalOpen(true);
     }
+  };
+
+  const handleRestaurantClick = (restaurantId: string) => {
+    navigate(`/restaurant/${restaurantId}`);
   };
 
   return (
@@ -70,7 +76,11 @@ const Restaurants: React.FC<RestaurantsProps> = ({ restaurants, selectedFilter, 
             {Array.from({ length: 20 }).map((_, index) => {
               const restaurant = restaurants[index % restaurants.length];
               return (
-                <div key={`${restaurant.id}-${index}`} className="flex flex-col items-center w-full shadow-[0px_4px_4px_#0000004c] rounded-[16px] lg:rounded-[20px] overflow-hidden">
+                <div 
+                  key={`${restaurant.id}-${index}`} 
+                  onClick={() => handleRestaurantClick(restaurant.id)}
+                  className="flex flex-col items-center w-full shadow-[0px_4px_4px_#0000004c] rounded-[16px] lg:rounded-[20px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                >
                   <div className="relative w-full">
                     <img 
                       src={restaurant.image} 
