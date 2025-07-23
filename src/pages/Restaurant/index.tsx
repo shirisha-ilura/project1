@@ -191,6 +191,78 @@ const RestaurantPage: React.FC = () => {
           rating: 4.2,
           reviewCount: 189,
           isFavorite: false
+        },
+        {
+          id: 'hardees-5',
+          name: 'BBQ Bacon Burger',
+          description: 'Juicy beef patty with crispy bacon, BBQ sauce, and onion rings.',
+          prices: { talabat: '32.00', noon: '35.00', careem: '37.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.5,
+          reviewCount: 345,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-6',
+          name: 'Chicken Tenders',
+          description: 'Golden crispy chicken tenders served with your choice of dipping sauce.',
+          prices: { talabat: '20.00', noon: '22.00', careem: '24.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.4,
+          reviewCount: 278,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-7',
+          name: 'Milkshake Vanilla',
+          description: 'Creamy vanilla milkshake made with premium ice cream.',
+          prices: { talabat: '15.00', noon: '17.00', careem: '19.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.1,
+          reviewCount: 156,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-8',
+          name: 'Onion Rings',
+          description: 'Crispy golden onion rings with a perfect crunch in every bite.',
+          prices: { talabat: '10.00', noon: '12.00', careem: '14.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.0,
+          reviewCount: 123,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-9',
+          name: 'Fish Sandwich',
+          description: 'Crispy fish fillet with tartar sauce and lettuce on a sesame bun.',
+          prices: { talabat: '26.00', noon: '28.00', careem: '30.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.2,
+          reviewCount: 198,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-10',
+          name: 'Apple Pie',
+          description: 'Warm apple pie with a flaky crust and cinnamon-spiced apple filling.',
+          prices: { talabat: '8.00', noon: '10.00', careem: '12.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.3,
+          reviewCount: 167,
+          isFavorite: false
         }
       ]
     },
@@ -257,6 +329,78 @@ const RestaurantPage: React.FC = () => {
           rating: 4.2,
           reviewCount: 198,
           isFavorite: false
+        },
+        {
+          id: 'shwaya-5',
+          name: 'Lamb Kebab',
+          description: 'Succulent lamb kebab grilled to perfection with Middle Eastern spices.',
+          prices: { talabat: '35.00', noon: '38.00', careem: '40.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.7,
+          reviewCount: 456,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-6',
+          name: 'Falafel Plate',
+          description: 'Crispy falafel served with tahini sauce, salad, and pita bread.',
+          prices: { talabat: '16.00', noon: '18.00', careem: '20.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.3,
+          reviewCount: 234,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-7',
+          name: 'Baklava',
+          description: 'Traditional Middle Eastern pastry with honey and nuts.',
+          prices: { talabat: '12.00', noon: '14.00', careem: '16.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.5,
+          reviewCount: 189,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-8',
+          name: 'Grilled Chicken',
+          description: 'Marinated grilled chicken with Arabic spices and garlic sauce.',
+          prices: { talabat: '28.00', noon: '30.00', careem: '32.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.6,
+          reviewCount: 378,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-9',
+          name: 'Tabbouleh',
+          description: 'Fresh parsley salad with tomatoes, mint, and lemon dressing.',
+          prices: { talabat: '14.00', noon: '16.00', careem: '18.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.2,
+          reviewCount: 145,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-10',
+          name: 'Manakish',
+          description: 'Traditional flatbread topped with za\'atar and olive oil.',
+          prices: { talabat: '10.00', noon: '12.00', careem: '14.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.1,
+          reviewCount: 123,
+          isFavorite: false
         }
       ]
     },
@@ -321,6 +465,78 @@ const RestaurantPage: React.FC = () => {
           category: 'Veg',
           isPopular: false,
           rating: 4.1,
+          reviewCount: 156,
+          isFavorite: false
+        },
+        {
+          id: 'baba-5',
+          name: 'Supreme Pizza',
+          description: 'Loaded pizza with pepperoni, sausage, peppers, onions, and mushrooms.',
+          prices: { talabat: '42.00', noon: '45.00', careem: '47.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.8,
+          reviewCount: 567,
+          isFavorite: false
+        },
+        {
+          id: 'baba-6',
+          name: 'Lasagna',
+          description: 'Layers of pasta with meat sauce, ricotta, and mozzarella cheese.',
+          prices: { talabat: '35.00', noon: '38.00', careem: '40.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.5,
+          reviewCount: 234,
+          isFavorite: false
+        },
+        {
+          id: 'baba-7',
+          name: 'Garlic Bread',
+          description: 'Crispy bread with garlic butter and herbs.',
+          prices: { talabat: '8.00', noon: '10.00', careem: '12.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.2,
+          reviewCount: 178,
+          isFavorite: false
+        },
+        {
+          id: 'baba-8',
+          name: 'Tiramisu',
+          description: 'Classic Italian dessert with coffee-soaked ladyfingers and mascarpone.',
+          prices: { talabat: '18.00', noon: '20.00', careem: '22.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.6,
+          reviewCount: 289,
+          isFavorite: false
+        },
+        {
+          id: 'baba-9',
+          name: 'Chicken Parmesan',
+          description: 'Breaded chicken breast with marinara sauce and melted cheese.',
+          prices: { talabat: '30.00', noon: '32.00', careem: '34.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.4,
+          reviewCount: 345,
+          isFavorite: false
+        },
+        {
+          id: 'baba-10',
+          name: 'Caprese Salad',
+          description: 'Fresh mozzarella, tomatoes, and basil with balsamic glaze.',
+          prices: { talabat: '20.00', noon: '22.00', careem: '24.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.3,
           reviewCount: 156,
           isFavorite: false
         }
