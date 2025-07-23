@@ -729,15 +729,21 @@ const RestaurantPage: React.FC = () => {
                     </svg>
                   </button>
                   {/* Add to Cart Badge */}
-                  <div className="absolute bottom-3 right-3">
+                  <button 
+                    onClick={() => navigate(`/restaurant/${restaurant.id}/item/${item.id}`)}
+                    className="absolute bottom-3 right-3 hover:scale-105 transition-transform"
+                  >
                     <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full font-medium">
                       ADD+
                     </span>
-                  </div>
+                  </button>
                 </div>
 
                 {/* Content Section */}
-                <div className="p-4">
+                <div 
+                  className="p-4 cursor-pointer" 
+                  onClick={() => navigate(`/restaurant/${restaurant.id}/item/${item.id}`)}
+                >
                   <h3 className="font-semibold text-gray-900 text-base mb-2">
                     {item.name}
                   </h3>
