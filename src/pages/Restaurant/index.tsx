@@ -37,6 +37,7 @@ interface RestaurantData {
   isOpen: boolean;
   openTime: string;
   tagline: string;
+  menuItems: MenuItem[];
 }
 
 const RestaurantPage: React.FC = () => {
@@ -47,193 +48,294 @@ const RestaurantPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
   const [favorites, setFavorites] = useState<{ [key: string]: boolean }>({});
 
-  // Mock restaurant data based on Figma design
-  const restaurant: RestaurantData = {
-    id: id || '1',
-    name: 'KFC',
-    cuisine: 'Fast Food, Chicken',
-    rating: 4.3,
-    deliveryTime: '20-30 min',
-    deliveryFee: 'Free',
-    image: '/images/img_4.png',
-    logo: '/images/talabat-logo-main.png',
-    discount: '20% off',
-    address: 'Sheikh Zayed Road, Dubai',
-    phone: '+971 4 123 4567',
-    isOpen: true,
-    openTime: 'Opens at 6:00 AM',
-    tagline: 'Crispy, Every Bite Taste'
+  // Restaurant data with specific menu items
+  const restaurantData: { [key: string]: RestaurantData } = {
+    '1': {
+      id: '1',
+      name: 'KFC',
+      cuisine: 'Fast Food, Chicken',
+      rating: 4.3,
+      deliveryTime: '20-30 min',
+      deliveryFee: 'Free',
+      image: '/images/img_4.png',
+      logo: '/images/talabat-logo-main.png',
+      discount: '20% off',
+      address: 'Sheikh Zayed Road, Dubai',
+      phone: '+971 4 123 4567',
+      isOpen: true,
+      openTime: 'Opens at 6:00 AM',
+      tagline: 'Crispy, Every Bite Taste',
+      menuItems: [
+        {
+          id: 'kfc-1',
+          name: 'Zinger Burger',
+          description: 'Spicy chicken fillet with lettuce and mayo in a sesame seed bun. A perfect blend of spice and flavor.',
+          prices: { talabat: '25.00', noon: '28.00', careem: '30.00' },
+          image: '/images/img_4.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.5,
+          reviewCount: 532,
+          isFavorite: false
+        },
+        {
+          id: 'kfc-2',
+          name: 'Original Recipe Chicken',
+          description: 'KFC\'s famous Original Recipe chicken with 11 herbs and spices. Crispy outside, juicy inside.',
+          prices: { talabat: '35.00', noon: '38.00', careem: '40.00' },
+          image: '/images/img_4.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.8,
+          reviewCount: 1205,
+          isFavorite: false
+        },
+        {
+          id: 'kfc-3',
+          name: 'Hot Wings',
+          description: 'Spicy chicken wings marinated in KFC\'s signature hot sauce. Perfect for spice lovers.',
+          prices: { talabat: '18.00', noon: '20.00', careem: '22.00' },
+          image: '/images/img_4.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.3,
+          reviewCount: 324,
+          isFavorite: false
+        },
+        {
+          id: 'kfc-4',
+          name: 'Coleslaw',
+          description: 'Fresh and creamy coleslaw made with crisp cabbage and carrots. A perfect side dish.',
+          prices: { talabat: '8.00', noon: '10.00', careem: '12.00' },
+          image: '/images/img_4.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.0,
+          reviewCount: 156,
+          isFavorite: false
+        },
+        {
+          id: 'kfc-5',
+          name: 'Twister Wrap',
+          description: 'Tender chicken strips wrapped in a soft tortilla with fresh vegetables and sauce.',
+          prices: { talabat: '22.00', noon: '25.00', careem: '27.00' },
+          image: '/images/img_4.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.4,
+          reviewCount: 678,
+          isFavorite: false
+        }
+      ]
+    },
+    '2': {
+      id: '2',
+      name: 'Hardee\'s',
+      cuisine: 'American, Burgers',
+      rating: 4.1,
+      deliveryTime: '25-35 min',
+      deliveryFee: '5 AED',
+      image: '/images/img_frame_45.png',
+      logo: '/images/noon-logo-main.png',
+      discount: '15% off',
+      address: 'Dubai Mall, Dubai',
+      phone: '+971 4 234 5678',
+      isOpen: true,
+      openTime: 'Opens at 7:00 AM',
+      tagline: 'Charburgers Made Right',
+      menuItems: [
+        {
+          id: 'hardees-1',
+          name: 'Famous Star Burger',
+          description: 'Charbroiled beef patty with lettuce, tomato, onions, pickles, and special sauce.',
+          prices: { talabat: '28.00', noon: '30.00', careem: '32.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.6,
+          reviewCount: 423,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-2',
+          name: 'Thickburger',
+          description: 'Premium Angus beef burger with all the fixings. A hearty and satisfying meal.',
+          prices: { talabat: '35.00', noon: '38.00', careem: '40.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.7,
+          reviewCount: 567,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-3',
+          name: 'Crispy Chicken Sandwich',
+          description: 'Hand-breaded chicken breast with mayo and pickles on a toasted bun.',
+          prices: { talabat: '24.00', noon: '26.00', careem: '28.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.3,
+          reviewCount: 234,
+          isFavorite: false
+        },
+        {
+          id: 'hardees-4',
+          name: 'Natural Cut Fries',
+          description: 'Skin-on fries with sea salt. Made from premium potatoes for the perfect crunch.',
+          prices: { talabat: '12.00', noon: '14.00', careem: '16.00' },
+          image: '/images/img_frame_45.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.2,
+          reviewCount: 189,
+          isFavorite: false
+        }
+      ]
+    },
+    '3': {
+      id: '3',
+      name: 'Shwaya House',
+      cuisine: 'Arabic, Grills',
+      rating: 4.5,
+      deliveryTime: '30-45 min',
+      deliveryFee: '7 AED',
+      image: '/images/img_frame_45_228x322.png',
+      logo: '/images/noon-logo-main.png',
+      discount: '25% off',
+      address: 'Jumeirah Beach Road, Dubai',
+      phone: '+971 4 345 6789',
+      isOpen: true,
+      openTime: 'Opens at 11:00 AM',
+      tagline: 'Authentic Arabic Flavors',
+      menuItems: [
+        {
+          id: 'shwaya-1',
+          name: 'Mixed Grill Platter',
+          description: 'A combination of lamb kebab, chicken tikka, and kofta served with rice and salad.',
+          prices: { talabat: '45.00', noon: '48.00', careem: '50.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.8,
+          reviewCount: 892,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-2',
+          name: 'Chicken Shawarma',
+          description: 'Tender chicken shawarma with garlic sauce, pickles, and vegetables in pita bread.',
+          prices: { talabat: '18.00', noon: '20.00', careem: '22.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.6,
+          reviewCount: 654,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-3',
+          name: 'Hummus with Meat',
+          description: 'Creamy hummus topped with seasoned ground meat and pine nuts.',
+          prices: { talabat: '22.00', noon: '25.00', careem: '27.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.4,
+          reviewCount: 321,
+          isFavorite: false
+        },
+        {
+          id: 'shwaya-4',
+          name: 'Fattoush Salad',
+          description: 'Fresh mixed greens with tomatoes, cucumbers, and crispy pita chips.',
+          prices: { talabat: '15.00', noon: '17.00', careem: '19.00' },
+          image: '/images/img_frame_45_228x322.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.2,
+          reviewCount: 198,
+          isFavorite: false
+        }
+      ]
+    },
+    '4': {
+      id: '4',
+      name: 'Baba Sultan Pizza and Pies',
+      cuisine: 'Italian, Pizza',
+      rating: 4.4,
+      deliveryTime: '40-50 min',
+      deliveryFee: '7 AED',
+      image: '/images/img_frame_45_1.png',
+      logo: '/images/careem-logo-main.png',
+      discount: '30% off',
+      address: 'Al Karama, Dubai',
+      phone: '+971 4 456 7890',
+      isOpen: true,
+      openTime: 'Opens at 10:00 AM',
+      tagline: 'Authentic Italian Taste',
+      menuItems: [
+        {
+          id: 'baba-1',
+          name: 'Margherita Pizza',
+          description: 'Classic pizza with fresh mozzarella, tomato sauce, and basil leaves.',
+          prices: { talabat: '32.00', noon: '35.00', careem: '37.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Veg',
+          isPopular: true,
+          rating: 4.7,
+          reviewCount: 743,
+          isFavorite: false
+        },
+        {
+          id: 'baba-2',
+          name: 'Pepperoni Pizza',
+          description: 'Traditional pizza topped with pepperoni slices and mozzarella cheese.',
+          prices: { talabat: '38.00', noon: '40.00', careem: '42.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Non Veg',
+          isPopular: true,
+          rating: 4.6,
+          reviewCount: 612,
+          isFavorite: false
+        },
+        {
+          id: 'baba-3',
+          name: 'Chicken Alfredo Pasta',
+          description: 'Creamy alfredo pasta with grilled chicken pieces and parmesan cheese.',
+          prices: { talabat: '28.00', noon: '30.00', careem: '32.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Non Veg',
+          isPopular: false,
+          rating: 4.3,
+          reviewCount: 287,
+          isFavorite: false
+        },
+        {
+          id: 'baba-4',
+          name: 'Caesar Salad',
+          description: 'Fresh romaine lettuce with caesar dressing, croutons, and parmesan cheese.',
+          prices: { talabat: '16.00', noon: '18.00', careem: '20.00' },
+          image: '/images/img_frame_45_1.png',
+          category: 'Veg',
+          isPopular: false,
+          rating: 4.1,
+          reviewCount: 156,
+          isFavorite: false
+        }
+      ]
+    }
   };
 
+  const restaurant = restaurantData[id || '1'] || restaurantData['1'];
   const categories = ['All', 'Bestseller', 'Veg', 'Non Veg'];
   const filters = ['Filters', 'Bestseller', 'Veg', 'Non Veg'];
 
-  const menuItems: MenuItem[] = [
-    {
-      id: '1',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '2',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '3',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '4',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '5',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '6',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '7',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '8',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '9',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    },
-    {
-      id: '10',
-      name: 'Delicious Burger',
-      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
-      prices: {
-        talabat: '45.00',
-        noon: '60.00',
-        careem: '65.00'
-      },
-      image: '/images/img_4.png',
-      category: 'Non Veg',
-      isPopular: true,
-      rating: 4.5,
-      reviewCount: 532,
-      isFavorite: false
-    }
-  ];
 
   const filteredItems = selectedCategory === 'All' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === selectedCategory);
+    ? restaurant.menuItems 
+    : restaurant.menuItems.filter(item => item.category === selectedCategory);
 
   const addToCart = (itemId: string) => {
     setCartItems(prev => ({
@@ -262,7 +364,7 @@ const RestaurantPage: React.FC = () => {
 
   const getTotalPrice = () => {
     return Object.entries(cartItems).reduce((total, [itemId, count]) => {
-      const item = menuItems.find(item => item.id === itemId);
+      const item = restaurant.menuItems.find(item => item.id === itemId);
       if (item && count > 0) {
         const price = parseFloat(item.prices.talabat);
         return total + (price * count);
