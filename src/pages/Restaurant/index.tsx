@@ -633,38 +633,37 @@ const RestaurantPage: React.FC = () => {
       <Header />
       
       {/* Restaurant Header Section */}
-      <div className="w-full bg-white px-4 sm:px-6 lg:px-12 py-8">
-        <div className="max-w-6xl mx-auto">
+      <div className="w-full bg-white px-6 lg:px-16 py-6">
+        <div className="max-w-7xl mx-auto">
           {/* Back Button and Restaurant Name */}
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-6 mb-4">
             <button 
               onClick={() => navigate(-1)}
-              className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+              className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="flex-1 text-center">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">
                 {restaurant.name}
               </h1>
-              <p className="text-green-600 text-base font-medium">
+              <p className="text-green-600 text-sm font-medium">
                 {restaurant.tagline}
               </p>
             </div>
-            <div className="w-12"></div> {/* Spacer for centering */}
           </div>
 
           {/* Our Food Menu Title */}
-          <div className="text-center mb-8">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Our Food Menu
             </h2>
           </div>
 
           {/* Filter Buttons */}
-          <div className="flex gap-4 mb-10 justify-center flex-wrap px-4">
+          <div className="flex gap-3 mb-8 justify-start flex-wrap">
             {filters.map((filter) => (
               <button
                 key={filter}
@@ -674,7 +673,7 @@ const RestaurantPage: React.FC = () => {
                     setSelectedFilter(filter);
                   }
                 }}
-                className={`px-6 py-3 rounded-lg text-base font-medium transition-all flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                   selectedFilter === filter
                     ? filter === 'Veg'
                       ? 'bg-green-100 text-green-700 border border-green-300'
@@ -685,18 +684,18 @@ const RestaurantPage: React.FC = () => {
                 }`}
               >
                 {filter === 'Filters' && (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
                   </svg>
                 )}
                 {filter === 'Veg' && (
-                  <div className="w-3 h-3 border border-green-600 rounded-sm flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 border border-green-600 rounded-sm flex items-center justify-center">
+                    <div className="w-1 h-1 bg-green-600 rounded-full"></div>
                   </div>
                 )}
                 {filter === 'Non Veg' && (
-                  <div className="w-3 h-3 border border-red-600 rounded-sm flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-red-600 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 border border-red-600 rounded-sm flex items-center justify-center">
+                    <div className="w-1 h-1 bg-red-600 rounded-full"></div>
                   </div>
                 )}
                 {filter}
@@ -705,23 +704,23 @@ const RestaurantPage: React.FC = () => {
           </div>
 
           {/* Menu Items Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-12 px-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
             {filteredItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div key={item.id} className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-200">
                 {/* Image Section */}
                 <div className="relative">
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-36 object-cover"
                   />
                   {/* Favorite Heart */}
                   <button
                     onClick={() => toggleFavorite(item.id)}
-                    className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200"
                   >
                     <svg 
-                      className={`w-6 h-6 ${favorites[item.id] ? 'fill-red-500 text-red-500' : 'fill-none text-gray-400'}`} 
+                      className={`w-4 h-4 ${favorites[item.id] ? 'fill-red-500 text-red-500' : 'fill-none text-gray-400'}`} 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
                     >
@@ -731,9 +730,9 @@ const RestaurantPage: React.FC = () => {
                   {/* Add to Cart Badge */}
                   <button 
                     onClick={() => navigate(`/restaurant/${restaurant.id}/item/${item.id}`)}
-                    className="absolute bottom-4 right-4 hover:scale-110 transition-transform duration-200"
+                    className="absolute bottom-2 right-2 hover:scale-105 transition-transform duration-200"
                   >
-                    <span className="bg-red-500 text-white text-sm px-3 py-2 rounded-full font-semibold shadow-lg">
+                    <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold shadow-md">
                       ADD+
                     </span>
                   </button>
@@ -741,55 +740,55 @@ const RestaurantPage: React.FC = () => {
 
                 {/* Content Section */}
                 <div 
-                  className="p-5 cursor-pointer" 
+                  className="p-3 cursor-pointer" 
                   onClick={() => navigate(`/restaurant/${restaurant.id}/item/${item.id}`)}
                 >
-                  <h3 className="font-bold text-gray-900 text-lg mb-3 line-clamp-1">
+                  <h3 className="font-bold text-gray-900 text-sm mb-2 line-clamp-1">
                     {item.name}
                   </h3>
                   
                   {/* Rating */}
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-1 mb-2">
                     <div className="flex items-center gap-1">
                       {renderStars(item.rating)}
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">
+                    <span className="text-xs text-gray-600 font-medium">
                       {item.reviewCount} ratings
                     </span>
                   </div>
                   
-                  <p className="text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed">
+                  <p className="text-gray-600 text-xs mb-3 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
                   
                   {/* Price Options */}
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center justify-between gap-2">
                     {/* Talabat Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-6 h-6 bg-orange-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">T</span>
+                      <div className="w-5 h-5 bg-orange-500 rounded-md flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">t</span>
                       </div>
-                      <span className="text-base font-bold text-gray-900">
+                      <span className="text-sm font-bold text-gray-900">
                         {item.prices.talabat}$
                       </span>
                     </div>
                     
                     {/* Noon Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-6 h-6 bg-green-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">N</span>
+                      <div className="w-5 h-5 bg-green-500 rounded-md flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">n</span>
                       </div>
-                      <span className="text-base font-bold text-gray-900">
+                      <span className="text-sm font-bold text-gray-900">
                         {item.prices.noon}$
                       </span>
                     </div>
                     
                     {/* Careem Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-6 h-6 bg-yellow-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">C</span>
+                      <div className="w-5 h-5 bg-yellow-500 rounded-md flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">c</span>
                       </div>
-                      <span className="text-base font-bold text-gray-900">
+                      <span className="text-sm font-bold text-gray-900">
                         {item.prices.careem}$
                       </span>
                     </div>
@@ -800,9 +799,9 @@ const RestaurantPage: React.FC = () => {
           </div>
 
           {/* View More Button */}
-          <div className="text-center mt-8">
-            <button className="bg-red-500 text-white px-12 py-4 rounded-full font-bold text-lg hover:bg-red-600 transition-colors flex items-center gap-3 mx-auto shadow-lg hover:shadow-xl">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center mt-6">
+            <button className="bg-red-500 text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-red-600 transition-colors flex items-center gap-2 mx-auto shadow-md hover:shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
@@ -814,9 +813,9 @@ const RestaurantPage: React.FC = () => {
 
       {/* Fixed Cart Button */}
       {getTotalItems() > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-2xl p-6 z-50">
-          <div className="max-w-6xl mx-auto">
-            <button className="w-full bg-red-500 text-white py-5 rounded-2xl font-bold text-xl flex items-center justify-between hover:bg-red-600 transition-colors shadow-lg">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-xl p-4 z-50">
+          <div className="max-w-7xl mx-auto">
+            <button className="w-full bg-red-500 text-white py-4 rounded-xl font-bold text-lg flex items-center justify-between hover:bg-red-600 transition-colors shadow-md">
               <span>View Cart • {getTotalItems()} items</span>
               <span>AED {getTotalPrice().toFixed(2)}</span>
             </button>
