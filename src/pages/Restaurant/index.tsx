@@ -7,12 +7,19 @@ interface MenuItem {
   id: string;
   name: string;
   description: string;
-  price: string;
+  prices: {
+    talabat: string;
+    noon: string;
+    careem: string;
+  };
   originalPrice?: string;
   image: string;
   category: string;
   isPopular?: boolean;
   discount?: string;
+  rating: number;
+  reviewCount: number;
+  isFavorite?: boolean;
 }
 
 interface RestaurantData {
@@ -29,19 +36,22 @@ interface RestaurantData {
   phone: string;
   isOpen: boolean;
   openTime: string;
+  tagline: string;
 }
 
 const RestaurantPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState('Starters');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedFilter, setSelectedFilter] = useState('Bestseller');
   const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
+  const [favorites, setFavorites] = useState<{ [key: string]: boolean }>({});
 
   // Mock restaurant data based on Figma design
   const restaurant: RestaurantData = {
     id: id || '1',
-    name: 'McDonald\'s',
-    cuisine: 'Fast Food, Burgers',
+    name: 'KFC',
+    cuisine: 'Fast Food, Chicken',
     rating: 4.3,
     deliveryTime: '20-30 min',
     deliveryFee: 'Free',
@@ -51,69 +61,179 @@ const RestaurantPage: React.FC = () => {
     address: 'Sheikh Zayed Road, Dubai',
     phone: '+971 4 123 4567',
     isOpen: true,
-    openTime: 'Opens at 6:00 AM'
+    openTime: 'Opens at 6:00 AM',
+    tagline: 'Crispy, Every Bite Taste'
   };
 
-  const categories = ['Starters', 'Mains', 'Sides', 'Desserts', 'Beverages'];
+  const categories = ['All', 'Bestseller', 'Veg', 'Non Veg'];
+  const filters = ['Filters', 'Bestseller', 'Veg', 'Non Veg'];
 
   const menuItems: MenuItem[] = [
     {
       id: '1',
-      name: 'Big Mac',
-      description: 'Two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun.',
-      price: '25.00',
-      originalPrice: '30.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Mains',
+      category: 'Non Veg',
       isPopular: true,
-      discount: '17% OFF'
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     },
     {
       id: '2',
-      name: 'Chicken McNuggets',
-      description: 'Tender, juicy chicken nuggets made with all white meat chicken.',
-      price: '18.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Starters',
-      isPopular: true
+      category: 'Non Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     },
     {
       id: '3',
-      name: 'Quarter Pounder',
-      description: 'Fresh beef quarter pound burger with cheese, onions, pickles, and ketchup.',
-      price: '28.00',
-      originalPrice: '32.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Mains',
-      discount: '12% OFF'
+      category: 'Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     },
     {
       id: '4',
-      name: 'French Fries',
-      description: 'Golden, crispy fries made from premium potatoes.',
-      price: '12.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Sides'
+      category: 'Non Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     },
     {
       id: '5',
-      name: 'McFlurry',
-      description: 'Creamy vanilla soft serve with your choice of mix-ins.',
-      price: '15.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Desserts'
+      category: 'Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     },
     {
       id: '6',
-      name: 'Coca Cola',
-      description: 'Refreshing Coca-Cola soft drink.',
-      price: '8.00',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
       image: '/images/img_4.png',
-      category: 'Beverages'
+      category: 'Non Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
+    },
+    {
+      id: '7',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
+      image: '/images/img_4.png',
+      category: 'Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
+    },
+    {
+      id: '8',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
+      image: '/images/img_4.png',
+      category: 'Non Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
+    },
+    {
+      id: '9',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
+      image: '/images/img_4.png',
+      category: 'Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
+    },
+    {
+      id: '10',
+      name: 'Delicious Burger',
+      description: 'Lorem Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac Lorem. Ipsum dolor sit amet consectetur. Mauris placerat aliquet sit ac.',
+      prices: {
+        talabat: '45.00',
+        noon: '60.00',
+        careem: '65.00'
+      },
+      image: '/images/img_4.png',
+      category: 'Non Veg',
+      isPopular: true,
+      rating: 4.5,
+      reviewCount: 532,
+      isFavorite: false
     }
   ];
 
-  const filteredItems = menuItems.filter(item => item.category === selectedCategory);
+  const filteredItems = selectedCategory === 'All' 
+    ? menuItems 
+    : menuItems.filter(item => item.category === selectedCategory);
 
   const addToCart = (itemId: string) => {
     setCartItems(prev => ({
@@ -129,6 +249,13 @@ const RestaurantPage: React.FC = () => {
     }));
   };
 
+  const toggleFavorite = (itemId: string) => {
+    setFavorites(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
+  };
+
   const getTotalItems = () => {
     return Object.values(cartItems).reduce((sum, count) => sum + count, 0);
   };
@@ -137,22 +264,61 @@ const RestaurantPage: React.FC = () => {
     return Object.entries(cartItems).reduce((total, [itemId, count]) => {
       const item = menuItems.find(item => item.id === itemId);
       if (item && count > 0) {
-        const price = parseFloat(item.price);
+        const price = parseFloat(item.prices.talabat);
         return total + (price * count);
       }
       return total;
     }, 0);
   };
 
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <svg key={i} className="w-3 h-3 fill-yellow-400" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      );
+    }
+
+    if (hasHalfStar) {
+      stars.push(
+        <svg key="half" className="w-3 h-3 fill-yellow-400" viewBox="0 0 20 20">
+          <defs>
+            <linearGradient id="half">
+              <stop offset="50%" stopColor="#FCD34D" />
+              <stop offset="50%" stopColor="#E5E7EB" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#half)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      );
+    }
+
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <svg key={`empty-${i}`} className="w-3 h-3 fill-gray-300" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      );
+    }
+
+    return stars;
+  };
+
   return (
-    <div className="w-full bg-white flex flex-col items-center min-h-screen">
+    <div className="w-full bg-gray-50 flex flex-col items-center min-h-screen">
       <Header />
       
       {/* Restaurant Header Section */}
-      <div className="w-full bg-white px-4 sm:px-6 lg:px-8 py-4">
+      <div className="w-full bg-white px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto">
-          {/* Back Button and Restaurant Info */}
-          <div className="flex items-center gap-4 mb-6">
+          {/* Back Button and Restaurant Name */}
+          <div className="flex items-center gap-4 mb-4">
             <button 
               onClick={() => navigate(-1)}
               className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
@@ -161,181 +327,163 @@ const RestaurantPage: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="flex-1">
+            <div className="flex-1 text-center">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
                 {restaurant.name}
               </h1>
-              <p className="text-gray-600 text-sm">
-                {restaurant.cuisine}
+              <p className="text-green-600 text-sm font-medium">
+                {restaurant.tagline}
               </p>
             </div>
+            <div className="w-10"></div> {/* Spacer for centering */}
           </div>
 
-          {/* Restaurant Image and Details Card */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
-            <div className="relative h-48 sm:h-64">
-              <img 
-                src={restaurant.image} 
-                alt={restaurant.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                {restaurant.discount}
-              </div>
-            </div>
-            
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <img 
-                    src={restaurant.logo} 
-                    alt={`${restaurant.name} logo`}
-                    className="w-12 h-12 rounded-lg"
-                  />
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-900">{restaurant.name}</h2>
-                    <p className="text-gray-600 text-sm">{restaurant.cuisine}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="flex items-center gap-1 mb-1">
-                    <svg className="w-4 h-4 fill-yellow-400" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="text-sm font-medium">{restaurant.rating}</span>
-                  </div>
-                  <p className="text-xs text-gray-500">{restaurant.deliveryTime}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>{restaurant.openTime}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{restaurant.deliveryFee} delivery</span>
-                  </div>
-                </div>
-                <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  restaurant.isOpen ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                }`}>
-                  {restaurant.isOpen ? 'Open' : 'Closed'}
-                </div>
-              </div>
-            </div>
+          {/* Our Food Menu Title */}
+          <div className="text-center mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+              Our Food Menu
+            </h2>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative mb-6">
-            <input
-              type="text"
-              placeholder="Search in menu"
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 pl-12 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-            />
-            <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-
-          {/* Category Tabs */}
-          <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
-            {categories.map((category) => (
+          {/* Filter Buttons */}
+          <div className="flex gap-3 mb-8 justify-center flex-wrap">
+            {filters.map((filter) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full whitespace-nowrap text-sm font-medium transition-all ${
-                  selectedCategory === category
-                    ? 'bg-red-500 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                key={filter}
+                onClick={() => {
+                  if (filter !== 'Filters') {
+                    setSelectedCategory(filter === 'Bestseller' ? 'All' : filter);
+                    setSelectedFilter(filter);
+                  }
+                }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+                  selectedFilter === filter
+                    ? filter === 'Veg'
+                      ? 'bg-green-100 text-green-700 border border-green-300'
+                      : filter === 'Non Veg'
+                      ? 'bg-red-100 text-red-700 border border-red-300'
+                      : 'bg-gray-900 text-white'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                {category}
+                {filter === 'Filters' && (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
+                  </svg>
+                )}
+                {filter === 'Veg' && (
+                  <div className="w-3 h-3 border border-green-600 rounded-sm flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-green-600 rounded-full"></div>
+                  </div>
+                )}
+                {filter === 'Non Veg' && (
+                  <div className="w-3 h-3 border border-red-600 rounded-sm flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-red-600 rounded-full"></div>
+                  </div>
+                )}
+                {filter}
               </button>
             ))}
           </div>
 
-          {/* Menu Items */}
-          <div className="space-y-4 mb-20">
+          {/* Menu Items Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             {filteredItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
-                <div className="flex gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-gray-900 text-lg mb-1">
-                          {item.name}
-                          {item.isPopular && (
-                            <span className="ml-2 bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full font-medium">
-                              Popular
-                            </span>
-                          )}
-                        </h3>
-                        {item.discount && (
-                          <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full font-medium">
-                            {item.discount}
-                          </span>
-                        )}
-                      </div>
+              <div key={item.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                {/* Image Section */}
+                <div className="relative">
+                  <img 
+                    src={item.image} 
+                    alt={item.name}
+                    className="w-full h-40 object-cover"
+                  />
+                  {/* Favorite Heart */}
+                  <button
+                    onClick={() => toggleFavorite(item.id)}
+                    className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    <svg 
+                      className={`w-5 h-5 ${favorites[item.id] ? 'fill-red-500 text-red-500' : 'fill-none text-gray-400'}`} 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                  {/* Add to Cart Badge */}
+                  <div className="absolute bottom-3 right-3">
+                    <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full font-medium">
+                      ADD+
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900 text-base mb-2">
+                    {item.name}
+                  </h3>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-1">
+                      {renderStars(item.rating)}
                     </div>
-                    
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                      {item.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-gray-900 text-lg">
-                          AED {item.price}
-                        </span>
-                        {item.originalPrice && (
-                          <span className="text-gray-400 line-through text-sm">
-                            AED {item.originalPrice}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        {cartItems[item.id] > 0 && (
-                          <>
-                            <button
-                              onClick={() => removeFromCart(item.id)}
-                              className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center hover:bg-red-200 transition-colors"
-                            >
-                              <span className="text-lg font-bold">-</span>
-                            </button>
-                            <span className="w-8 text-center font-medium">
-                              {cartItems[item.id]}
-                            </span>
-                          </>
-                        )}
-                        <button
-                          onClick={() => addToCart(item.id)}
-                          className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
-                        >
-                          <span className="text-lg font-bold">+</span>
-                        </button>
-                      </div>
-                    </div>
+                    <span className="text-xs text-gray-600">
+                      {item.reviewCount} ratings
+                    </span>
                   </div>
                   
-                  <div className="w-24 h-24 flex-shrink-0">
-                    <img 
-                      src={item.image} 
-                      alt={item.name}
-                      className="w-full h-full rounded-xl object-cover"
-                    />
+                  <p className="text-gray-600 text-xs mb-4 line-clamp-3">
+                    {item.description}
+                  </p>
+                  
+                  {/* Price Options */}
+                  <div className="flex items-center justify-between gap-2">
+                    {/* Talabat Price */}
+                    <div className="flex items-center gap-1">
+                      <div className="w-5 h-5 bg-orange-500 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">T</span>
+                      </div>
+                      <span className="text-sm font-bold text-gray-900">
+                        {item.prices.talabat}$
+                      </span>
+                    </div>
+                    
+                    {/* Noon Price */}
+                    <div className="flex items-center gap-1">
+                      <div className="w-5 h-5 bg-green-500 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">N</span>
+                      </div>
+                      <span className="text-sm font-bold text-gray-900">
+                        {item.prices.noon}$
+                      </span>
+                    </div>
+                    
+                    {/* Careem Price */}
+                    <div className="flex items-center gap-1">
+                      <div className="w-5 h-5 bg-yellow-500 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">C</span>
+                      </div>
+                      <span className="text-sm font-bold text-gray-900">
+                        {item.prices.careem}$
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* View More Button */}
+          <div className="text-center">
+            <button className="bg-red-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition-colors flex items-center gap-2 mx-auto">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              View More
+            </button>
           </div>
         </div>
       </div>
