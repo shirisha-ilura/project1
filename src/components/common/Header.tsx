@@ -1,9 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const categories = [
+    'Pizza', 'Burger', 'Cake', 'Sub-sandwich', 'Chowmein', 
+    'Arabic', 'Chinese', 'Continental', 'Breakfast', 'Shawarma', 'Coffee'
+  ];
+
+  const handleCategorySelect = (categoryName: string) => {
+    const urlFriendlyName = categoryName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/category/${urlFriendlyName}`);
+    setCategoryOpen(false);
+  };
 
   return (
     <header className="w-full bg-white">
@@ -11,7 +24,10 @@ const Header: React.FC = () => {
       <div className="flex justify-start items-center w-full px-4 sm:px-6 lg:px-[120px] py-4">
         <div className="flex justify-between items-center w-full">
           {/* Logo */}
-          <h1 className="text-lg sm:text-xl lg:text-[26px] font-poppins font-semibold leading-[41px] text-[#2e2e2e]">
+          <h1 
+            onClick={() => navigate('/')}
+            className="text-lg sm:text-xl lg:text-[26px] font-poppins font-semibold leading-[41px] text-[#2e2e2e] cursor-pointer hover:text-[#e50300] transition-colors"
+          >
             NAME OF APP
           </h1>
 
@@ -19,7 +35,12 @@ const Header: React.FC = () => {
           <div className="hidden lg:flex items-start gap-9">
             <nav className="flex gap-9 items-start">
               <div className="flex flex-col gap-1 items-start">
-                <span className="text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e]">Home</span>
+                <button 
+                  onClick={() => navigate('/')}
+                  className="text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors"
+                >
+                  Home
+                </button>
                 <div className="w-8 h-1 bg-[#e50300] rounded-[2px]"></div>
               </div>
               <button role="menuitem" className="text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors">
@@ -74,9 +95,15 @@ const Header: React.FC = () => {
               
               {categoryOpen && (
                 <div className="absolute top-full left-0 w-48 bg-white border border-gray-200 rounded-b-md shadow-lg z-10">
-                  <button className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm">Fruits & Vegetables</button>
-                  <button className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm">Meat & Seafood</button>
-                  <button className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm">Dairy & Eggs</button>
+                  {categories.map((category) => (
+                    <button 
+                      key={category}
+                      onClick={() => handleCategorySelect(category)}
+                      className="w-full px-4 py-2 text-left hover:bg-gray-50 text-sm"
+                    >
+                      {category}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -128,6 +155,7 @@ const Header: React.FC = () => {
           {/* Browse Categories Button */}
           <div className="w-full lg:w-[18%]">
             <button className="flex justify-between items-center w-full bg-[#e50300] text-white px-[18px] py-3 rounded-[6px] hover:bg-[#d10300] transition-colors">
+              onClick={() => setCategoryOpen(!categoryOpen)}
               <span className="text-[13px] font-outfit font-light leading-[18px]">Browse all Categories</span>
               <img src="/images/img_ep_arrow_up.svg" alt="arrow" className="w-3 h-2.5" />
             </button>
@@ -141,6 +169,7 @@ const Header: React.FC = () => {
             </div>
             
             <button role="menuitem" className="text-[16px] font-quicksand font-bold leading-5 text-[#f54748] hover:text-[#e50300] transition-colors">
+              onClick={() => navigate('/')}
               Home
             </button>
             
@@ -194,6 +223,10 @@ const Header: React.FC = () => {
       {menuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-4">
           <div className="flex flex-col gap-4">
+            <button className="text-left text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors">
+              onClick={() => navigate('/')}
+              Home
+            </button>
             <button className="text-left text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors">
               Blog
             </button>

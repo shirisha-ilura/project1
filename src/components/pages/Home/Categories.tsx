@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface CategoryItem {
   id: string;
@@ -11,6 +12,14 @@ interface CategoriesProps {
 }
 
 const Categories: React.FC<CategoriesProps> = ({ categories }) => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName: string) => {
+    // Convert category name to URL-friendly format
+    const urlFriendlyName = categoryName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/category/${urlFriendlyName}`);
+  };
+
   return (
     <div className="w-full bg-[#e50300] flex flex-col gap-1 items-center py-8 mt-4">
       <h3 className="text-sm sm:text-base lg:text-[17px] font-poppins font-medium leading-[26px] text-center text-white mt-3">
@@ -26,7 +35,8 @@ const Categories: React.FC<CategoriesProps> = ({ categories }) => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="flex flex-col gap-2 items-center w-[80px] sm:w-[90px] lg:w-[106px] flex-shrink-0"
+              onClick={() => handleCategoryClick(category.name)}
+              className="flex flex-col gap-2 items-center w-[80px] sm:w-[90px] lg:w-[106px] flex-shrink-0 cursor-pointer hover:scale-105 transition-transform duration-200"
             >
               <img
                 src={category.image}
