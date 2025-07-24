@@ -250,203 +250,263 @@ const CategoryPage: React.FC = () => {
     <div className="w-full bg-gray-50 flex flex-col items-center min-h-screen">
       <Header />
       
-      {/* Category Header with circular food images */}
-      <div className="w-full bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 py-6">
-        <div className="flex items-center justify-center gap-4 px-4">
-          {/* Food category circles */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
+      {/* Category Header - Horizontal Scrolling Food Categories */}
+      <div className="w-full bg-gradient-to-r from-red-500 via-red-600 to-orange-500 py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-white text-center text-lg font-semibold mb-6">Browse Categories</h2>
+          <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide pb-2">
+            <div className="flex items-center gap-4 min-w-max">
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICAGO DEEP PIZZA</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">FAST FOOD COMBO</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">GRILLED CHICKEN</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">WHOPPER BURGER KING</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICKEN</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">BEEF</span>
+              </div>
+              
+              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-xs font-bold text-center max-w-[100px]">SHAWARMA</span>
+              </div>
             </div>
-            <span className="text-white text-xs font-bold text-center">CHICAGO DEEP PIZZA</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">FAST FOOD COMBO</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">GRILLED CHICKEN</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">WHOPPER BURGER KING</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">CHICKEN</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">BEEF</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">SHAWARMA</span>
           </div>
         </div>
       </div>
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Filters Section */}
-        <div className="flex flex-wrap items-center gap-4 my-6 bg-white p-4 rounded-xl shadow-sm">
-          {/* Sort Dropdown */}
-          <div className="relative">
-            <select 
-              value={selectedSort}
-              onChange={(e) => setSelectedSort(e.target.value)}
-              className="appearance-none bg-red-500 text-white px-4 py-2 pr-8 rounded-lg font-medium cursor-pointer hover:bg-red-600 transition-colors"
+        {/* Breadcrumb Navigation */}
+        <div className="py-4">
+          <nav className="flex items-center space-x-2 text-sm">
+            <button 
+              onClick={() => navigate('/')}
+              className="text-gray-500 hover:text-red-600 transition-colors"
             >
-              {sortOptions.map(option => (
-                <option key={option} value={option} className="bg-white text-gray-900">
-                  {option}
-                </option>
-              ))}
-            </select>
-            <svg className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-
-          {/* Filter Buttons */}
-          {filterOptions.map(filter => (
-            <button
-              key={filter}
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium"
-            >
-              {filter}
+              Home
             </button>
-          ))}
+            <span className="text-gray-400">/</span>
+            <span className="text-red-600 font-medium capitalize">
+              {categoryName?.replace('-', ' ') || 'Category'}
+            </span>
+          </nav>
+        </div>
+        {/* Filters Section */}
+        <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fadeIn">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+            {/* Sort Dropdown */}
+            <div className="relative">
+              <select 
+                value={selectedSort}
+                onChange={(e) => setSelectedSort(e.target.value)}
+                className="appearance-none bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 pr-10 rounded-xl font-medium cursor-pointer hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
+              >
+                {sortOptions.map(option => (
+                  <option key={option} value={option} className="bg-white text-gray-900">
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <svg className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-3">
+              {filterOptions.map(filter => (
+                <button
+                  key={filter}
+                  className="px-5 py-2.5 border-2 border-gray-200 rounded-xl text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all duration-300 font-medium"
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+            
+            {/* Search */}
+            <div className="ml-auto flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 min-w-[250px]">
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input 
+                type="text" 
+                placeholder={`Search ${categoryName || 'food'}...`}
+                className="bg-transparent outline-none text-sm text-gray-700 flex-1 placeholder-gray-400"
+              />
+            </div>
+          </div>
           
-          {/* Search */}
-          <div className="ml-auto flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2">
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input 
-              type="text" 
-              placeholder="Pizza"
-              className="bg-transparent outline-none text-sm text-gray-600"
-            />
+          {/* Quick Stats */}
+          <div className="flex items-center gap-6 mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-sm text-gray-600">{extendedItems.length} restaurants available</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span className="text-sm text-gray-600">Free delivery on orders above 50 AED</span>
+            </div>
           </div>
         </div>
 
         {/* Main Content Area */}
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Side - Hero Section */}
-          <div className={`w-80 ${currentCategory.bgColor} rounded-2xl p-8 text-white relative overflow-hidden h-fit`}>
+          <div className={`w-full lg:w-80 ${currentCategory.bgColor} rounded-2xl p-8 text-white relative overflow-hidden h-fit`}>
             <div className="relative z-10">
-              <h1 className="text-4xl font-bold mb-2 leading-tight">
+              <h1 className="text-3xl lg:text-4xl font-bold mb-2 leading-tight">
                 {currentCategory.title}
               </h1>
-              <h2 className="text-4xl font-bold text-yellow-300 mb-6">
+              <h2 className="text-3xl lg:text-4xl font-bold text-yellow-300 mb-6">
                 {currentCategory.subtitle}
               </h2>
               <div className="mb-6">
                 <img 
                   src={currentCategory.image} 
                   alt={currentCategory.title}
-                  className="w-64 h-48 object-cover rounded-lg"
+                  className="w-full lg:w-64 h-48 object-cover rounded-lg shadow-lg"
                 />
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                <p className="text-sm text-white/90">
+                  Discover delicious {currentCategory.subtitle.toLowerCase()} from top restaurants near you
+                </p>
               </div>
             </div>
           </div>
 
           {/* Right Side - Food Items Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                Popular {currentCategory.subtitle}
+              </h3>
+              <p className="text-gray-600">
+                {extendedItems.length} restaurants delivering to your area
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
               {currentItems.map((item) => (
                 <div 
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group hover:scale-105"
                 >
-                  {/* Restaurant Info Header */}
-                  <div className="p-3 border-b border-gray-100">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-sm text-gray-900">{item.restaurantName}</h3>
-                      <div className="flex items-center gap-1">
+                  {/* Restaurant Banner */}
+                  <div className="relative">
+                    <div className="h-32 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    {item.discount && (
+                      <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                        {item.discount}
+                      </div>
+                    )}
+                    <div className="absolute bottom-3 right-3 bg-white rounded-full p-1 shadow-lg">
+                      <img src={item.restaurantLogo} alt="platform" className="w-6 h-6 rounded-full" />
+                    </div>
+                  </div>
+
+                  {/* Restaurant Info */}
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-bold text-lg text-gray-900 truncate">{item.restaurantName}</h3>
+                      <div className="flex items-center gap-1 ml-2">
                         <div className="flex items-center gap-1">
                           {renderStars(item.rating)}
                         </div>
-                        <span className="text-xs text-gray-600">{item.rating}</span>
-                        <span className="text-xs text-gray-400">({item.reviewCount})</span>
+                        <span className="text-sm font-semibold text-gray-700">{item.rating}</span>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-gray-500">{item.deliveryTime}</span>
-                      <span className="text-xs font-semibold text-gray-900">{item.price}</span>
+                    
+                    <p className="text-sm text-gray-600 mb-3">{item.description}</p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <span className="text-xs text-gray-500">{item.deliveryTime}</span>
+                        <span className="text-xs text-green-600 font-medium">{item.deliveryFee}</span>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        {item.originalPrice && (
+                          <span className="text-xs text-gray-400 line-through">{item.originalPrice}</span>
+                        )}
+                        <span className="text-lg font-bold text-red-600">{item.price}</span>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Food Images */}
-                  <div className="flex">
-                    <div className="w-1/2 p-2">
-                      <img 
-                        src={item.image} 
-                        alt={item.name}
-                        className="w-full h-20 object-cover rounded-lg"
-                      />
+                    
+                    <div className="mt-3 pt-3 border-t border-gray-100">
+                      <button className="w-full bg-red-50 text-red-600 py-2 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors">
+                        View Menu
+                      </button>
                     </div>
-                    <div className="w-1/2 p-2">
-                      <img 
-                        src={item.image} 
-                        alt={item.name}
-                        className="w-full h-20 object-cover rounded-lg"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Restaurant Logo and Action */}
-                  <div className="p-3 flex items-center justify-between">
-                    <img src={item.restaurantLogo} alt="platform" className="w-8 h-8 rounded" />
-                    <button className="text-xs text-gray-600 hover:text-gray-800">
-                      View Full Menu →
-                    </button>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between mb-8 bg-white p-4 rounded-xl shadow-sm">
-              <span className="text-sm text-gray-600">
-                {startIndex + 1} to {Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} items
-              </span>
-              
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Total Items:</span>
-                  <select className="border border-gray-300 rounded px-2 py-1 text-sm">
-                    <option>20</option>
-                    <option>50</option>
-                    <option>100</option>
-                  </select>
+            <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} restaurants
+                  </span>
+                  
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600">Per page:</span>
+                    <select className="border-2 border-gray-200 rounded-lg px-3 py-1 text-sm font-medium focus:border-red-500 focus:outline-none">
+                      <option>20</option>
+                      <option>50</option>
+                      <option>100</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   <button 
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
-                    className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
                   >
                     ‹
                   </button>
@@ -457,10 +517,10 @@ const CategoryPage: React.FC = () => {
                       <button
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`w-8 h-8 flex items-center justify-center border rounded text-sm ${
+                        className={`w-10 h-10 flex items-center justify-center border-2 rounded-xl text-sm font-medium transition-all duration-300 ${
                           currentPage === pageNum
-                            ? 'bg-red-500 text-white border-red-500'
-                            : 'border-gray-300 hover:bg-gray-50'
+                            ? 'bg-gradient-to-r from-red-500 to-red-600 text-white border-red-500 shadow-lg'
+                            : 'border-gray-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600'
                         }`}
                       >
                         {pageNum}
@@ -471,11 +531,18 @@ const CategoryPage: React.FC = () => {
                   <button 
                     onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
-                    className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
                   >
                     ›
                   </button>
                 </div>
+              </div>
+              
+              {/* Load More Button for Mobile */}
+              <div className="mt-4 sm:hidden">
+                <button className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-xl font-medium hover:from-red-600 hover:to-red-700 transition-all duration-300">
+                  Load More Restaurants
+                </button>
               </div>
             </div>
           </div>
