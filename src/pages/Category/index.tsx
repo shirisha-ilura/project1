@@ -252,55 +252,55 @@ const CategoryPage: React.FC = () => {
       
       {/* Category Header with circular food images */}
       <div className="w-full bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 py-6">
-        <div className="flex items-center justify-center gap-4 px-4">
+        <div className="flex items-center justify-center gap-6 px-4 overflow-x-auto">
           {/* Food category circles */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">CHICAGO DEEP PIZZA</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">CHICAGO DEEP PIZZA</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">FAST FOOD COMBO</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">FAST FOOD COMBO</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">GRILLED CHICKEN</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">GRILLED CHICKEN</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">WHOPPER BURGER KING</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">WHOPPER BURGER KING</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">CHICKEN</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">CHICKEN</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">BEEF</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">BEEF</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
               <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
             </div>
-            <span className="text-white text-xs font-bold text-center">SHAWARMA</span>
+            <span className="text-white text-xs font-bold text-center whitespace-nowrap">SHAWARMA</span>
           </div>
         </div>
       </div>
@@ -349,133 +349,135 @@ const CategoryPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Content Area */}
-        <div className="flex gap-8">
-          {/* Left Side - Hero Section */}
-          <div className={`w-80 ${currentCategory.bgColor} rounded-2xl p-8 text-white relative overflow-hidden h-fit`}>
-            <div className="relative z-10">
-              <h1 className="text-4xl font-bold mb-2 leading-tight">
-                {currentCategory.title}
-              </h1>
-              <h2 className="text-4xl font-bold text-yellow-300 mb-6">
-                {currentCategory.subtitle}
-              </h2>
-              <div className="mb-6">
-                <img 
-                  src={currentCategory.image} 
-                  alt={currentCategory.title}
-                  className="w-64 h-48 object-cover rounded-lg"
-                />
+        {/* Main Content Area - Full Width Grid */}
+        <div className="w-full">
+          {/* Left Side Hero Section */}
+          <div className="flex gap-8 mb-8">
+            <div className={`w-80 ${currentCategory.bgColor} rounded-2xl p-8 text-white relative overflow-hidden h-fit`}>
+              <div className="relative z-10">
+                <h1 className="text-4xl font-bold mb-2 leading-tight">
+                  {currentCategory.title}
+                </h1>
+                <h2 className="text-4xl font-bold text-yellow-300 mb-6">
+                  {currentCategory.subtitle}
+                </h2>
+                <div className="mb-6">
+                  <img 
+                    src={currentCategory.image} 
+                    alt={currentCategory.title}
+                    className="w-64 h-48 object-cover rounded-lg"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Food Items Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {currentItems.map((item) => (
-                <div 
-                  key={item.id}
-                  onClick={() => handleItemClick(item.id)}
-                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
-                >
-                  {/* Restaurant Info Header */}
-                  <div className="p-3 border-b border-gray-100">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-sm text-gray-900">{item.restaurantName}</h3>
+          {/* Food Items Grid - Full Width */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
+            {currentItems.map((item) => (
+              <div 
+                key={item.id}
+                onClick={() => handleItemClick(item.id)}
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100"
+              >
+                {/* Restaurant Info Header */}
+                <div className="p-4 border-b border-gray-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-bold text-base text-gray-900 truncate">{item.restaurantName}</h3>
+                    <div className="flex items-center gap-1">
                       <div className="flex items-center gap-1">
-                        <div className="flex items-center gap-1">
-                          {renderStars(item.rating)}
-                        </div>
-                        <span className="text-xs text-gray-600">{item.rating}</span>
-                        <span className="text-xs text-gray-400">({item.reviewCount})</span>
+                        {renderStars(item.rating)}
                       </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-gray-500">{item.deliveryTime}</span>
-                      <span className="text-xs font-semibold text-gray-900">{item.price}</span>
+                      <span className="text-sm text-gray-600 ml-1">{item.rating}</span>
+                      <span className="text-xs text-gray-400">({item.reviewCount})</span>
                     </div>
                   </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-500">{item.deliveryTime}</span>
+                    <span className="text-sm font-semibold text-gray-900">{item.deliveryFee}</span>
+                  </div>
+                </div>
 
-                  {/* Food Images */}
-                  <div className="flex">
-                    <div className="w-1/2 p-2">
+                {/* Food Images */}
+                <div className="p-4">
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div className="aspect-square rounded-lg overflow-hidden">
                       <img 
                         src={item.image} 
                         alt={item.name}
-                        className="w-full h-20 object-cover rounded-lg"
+                        className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="w-1/2 p-2">
+                    <div className="aspect-square rounded-lg overflow-hidden">
                       <img 
                         src={item.image} 
                         alt={item.name}
-                        className="w-full h-20 object-cover rounded-lg"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
 
                   {/* Restaurant Logo and Action */}
-                  <div className="p-3 flex items-center justify-between">
+                  <div className="flex items-center justify-between">
                     <img src={item.restaurantLogo} alt="platform" className="w-8 h-8 rounded" />
-                    <button className="text-xs text-gray-600 hover:text-gray-800">
+                    <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
                       View Full Menu →
                     </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
 
-            {/* Pagination */}
-            <div className="flex items-center justify-between mb-8 bg-white p-4 rounded-xl shadow-sm">
-              <span className="text-sm text-gray-600">
-                {startIndex + 1} to {Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} items
-              </span>
-              
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Total Items:</span>
-                  <select className="border border-gray-300 rounded px-2 py-1 text-sm">
-                    <option>20</option>
-                    <option>50</option>
-                    <option>100</option>
-                  </select>
-                </div>
+          {/* Pagination */}
+          <div className="flex items-center justify-between mb-8 bg-white p-4 rounded-xl shadow-sm">
+            <span className="text-sm text-gray-600">
+              {startIndex + 1} to {Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} items
+            </span>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Total Items:</span>
+                <select className="border border-gray-300 rounded px-2 py-1 text-sm">
+                  <option>20</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+              </div>
 
-                <div className="flex items-center gap-1">
-                  <button 
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    ‹
-                  </button>
-                  
-                  {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
-                    const pageNum = i + 1;
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`w-8 h-8 flex items-center justify-center border rounded text-sm ${
-                          currentPage === pageNum
-                            ? 'bg-red-500 text-white border-red-500'
-                            : 'border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
-                  
-                  <button 
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                    disabled={currentPage === totalPages}
-                    className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                  >
-                    ›
-                  </button>
-                </div>
+              <div className="flex items-center gap-1">
+                <button 
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                >
+                  ‹
+                </button>
+                
+                {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+                  const pageNum = i + 1;
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`w-8 h-8 flex items-center justify-center border rounded text-sm ${
+                        currentPage === pageNum
+                          ? 'bg-red-500 text-white border-red-500'
+                          : 'border-gray-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+                
+                <button 
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                >
+                  ›
+                </button>
               </div>
             </div>
           </div>
