@@ -198,6 +198,57 @@ const CategoryPage: React.FC = () => {
       deliveryFee: 'Free delivery',
       discount: '29% off'
     },
+    // Sub-sandwich items
+    {
+      id: 'sub-1',
+      name: 'Italian BMT Sub',
+      description: 'Pepperoni, salami, and ham with fresh vegetables',
+      price: '18 AED',
+      originalPrice: '24 AED',
+      rating: 4.3,
+      reviewCount: 89,
+      image: '/images/img_frame_45.png',
+      restaurantName: 'Subway Express',
+      restaurantLogo: '/images/careem-logo-main.png',
+      category: 'sub-sandwich',
+      deliveryTime: '15-25 mins',
+      deliveryFee: 'Free delivery',
+      discount: '25% off'
+    },
+    // Chowmein items
+    {
+      id: 'chowmein-1',
+      name: 'Chicken Chowmein',
+      description: 'Stir-fried noodles with chicken and vegetables',
+      price: '22 AED',
+      originalPrice: '28 AED',
+      rating: 4.6,
+      reviewCount: 203,
+      image: '/images/img_unsplash_uc0hzduitwy_1.png',
+      restaurantName: 'Dragon Palace',
+      restaurantLogo: '/images/talabat-logo-main.png',
+      category: 'chowmein',
+      deliveryTime: '30-40 mins',
+      deliveryFee: '5 AED',
+      discount: '21% off'
+    },
+    // Arabic items
+    {
+      id: 'arabic-1',
+      name: 'Mixed Grilled Platter',
+      description: 'Assorted grilled meats with rice and salad',
+      price: '45 AED',
+      originalPrice: '55 AED',
+      rating: 4.8,
+      reviewCount: 167,
+      image: '/images/img_frame_45_228x322.png',
+      restaurantName: 'Al Fanar Restaurant',
+      restaurantLogo: '/images/noon-logo-main.png',
+      category: 'arabic',
+      deliveryTime: '45-60 mins',
+      deliveryFee: 'Free delivery',
+      discount: '18% off'
+    }
     // Add more items for other categories...
   ];
 
@@ -421,63 +472,78 @@ const CategoryPage: React.FC = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {currentItems.map((item) => (
                 <div 
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group hover:scale-105"
+                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-100"
                 >
-                  {/* Restaurant Banner */}
-                  <div className="relative">
-                    <div className="h-32 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
+                  {/* Restaurant Image */}
+                  <div className="relative h-48">
+                    <img 
+                      src={item.image} 
+                      alt={item.restaurantName}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Discount Badge */}
                     {item.discount && (
-                      <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                      <div className="absolute top-3 left-3 bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
                         {item.discount}
                       </div>
                     )}
-                    <div className="absolute bottom-3 right-3 bg-white rounded-full p-1 shadow-lg">
-                      <img src={item.restaurantLogo} alt="platform" className="w-6 h-6 rounded-full" />
+                    {/* Delivery Time Badge */}
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-700">
+                      {item.deliveryTime}
                     </div>
                   </div>
 
-                  {/* Restaurant Info */}
+                  {/* Restaurant Details */}
                   <div className="p-4">
+                    {/* Restaurant Name and Rating */}
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-lg text-gray-900 truncate">{item.restaurantName}</h3>
-                      <div className="flex items-center gap-1 ml-2">
+                      <h3 className="font-bold text-lg text-gray-900 truncate pr-2">{item.restaurantName}</h3>
+                      <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded">
+                        <svg className="w-3 h-3 fill-green-600" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span className="text-xs font-bold text-green-700">{item.rating}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Cuisine Type */}
+                    <p className="text-sm text-gray-500 mb-3 capitalize">{item.category} • American</p>
+                    
+                    {/* Delivery Info */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
-                          {renderStars(item.rating)}
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-sm text-gray-600">{item.deliveryTime}</span>
                         </div>
-                        <span className="text-sm font-semibold text-gray-700">{item.rating}</span>
+                        <div className="flex items-center gap-1">
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <span className="text-sm text-gray-600">{item.deliveryFee}</span>
+                        </div>
                       </div>
                     </div>
-                    
-                    <p className="text-sm text-gray-600 mb-3">{item.description}</p>
-                    
+
+                    {/* Pricing */}
                     <div className="flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">{item.deliveryTime}</span>
-                        <span className="text-xs text-green-600 font-medium">{item.deliveryFee}</span>
-                      </div>
-                      <div className="flex flex-col items-end">
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-bold text-gray-900">{item.price}</span>
                         {item.originalPrice && (
-                          <span className="text-xs text-gray-400 line-through">{item.originalPrice}</span>
+                          <span className="text-sm text-gray-400 line-through">{item.originalPrice}</span>
                         )}
-                        <span className="text-lg font-bold text-red-600">{item.price}</span>
                       </div>
-                    </div>
-                    
-                    <div className="mt-3 pt-3 border-t border-gray-100">
-                      <button className="w-full bg-red-50 text-red-600 py-2 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors">
-                        View Menu
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <img src={item.restaurantLogo} alt="delivery platform" className="w-6 h-6" />
+                      </div>
                     </div>
                   </div>
                 </div>
