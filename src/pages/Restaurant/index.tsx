@@ -41,7 +41,7 @@ interface RestaurantData {
 }
 
 const RestaurantPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedFilter, setSelectedFilter] = useState('Bestseller');

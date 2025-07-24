@@ -154,8 +154,10 @@ const Header: React.FC = () => {
         <div className="flex flex-col lg:flex-row justify-between items-center w-full lg:w-[86%] gap-4">
           {/* Browse Categories Button */}
           <div className="w-full lg:w-[18%]">
-            <button className="flex justify-between items-center w-full bg-[#e50300] text-white px-[18px] py-3 rounded-[6px] hover:bg-[#d10300] transition-colors">
+            <button 
+              className="flex justify-between items-center w-full bg-[#e50300] text-white px-[18px] py-3 rounded-[6px] hover:bg-[#d10300] transition-colors"
               onClick={() => setCategoryOpen(!categoryOpen)}
+            >
               <span className="text-[13px] font-outfit font-light leading-[18px]">Browse all Categories</span>
               <img src="/images/img_ep_arrow_up.svg" alt="arrow" className="w-3 h-2.5" />
             </button>
@@ -168,8 +170,11 @@ const Header: React.FC = () => {
               <span className="text-[16px] font-quicksand font-bold leading-5 text-[#253d4e]">Deals</span>
             </div>
             
-            <button role="menuitem" className="text-[16px] font-quicksand font-bold leading-5 text-[#f54748] hover:text-[#e50300] transition-colors">
+            <button 
+              role="menuitem" 
+              className="text-[16px] font-quicksand font-bold leading-5 text-[#f54748] hover:text-[#e50300] transition-colors"
               onClick={() => navigate('/')}
+            >
               Home
             </button>
             
@@ -223,8 +228,10 @@ const Header: React.FC = () => {
       {menuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-4">
           <div className="flex flex-col gap-4">
-            <button className="text-left text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors">
+            <button 
+              className="text-left text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors"
               onClick={() => navigate('/')}
+            >
               Home
             </button>
             <button className="text-left text-[13px] font-poppins font-normal leading-[21px] text-[#2e2e2e] hover:text-[#e50300] transition-colors">

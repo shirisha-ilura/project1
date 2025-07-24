@@ -41,7 +41,7 @@ interface RestaurantData {
 }
 
 const FoodItemPage: React.FC = () => {
-  const { restaurantId, itemId } = useParams<{ restaurantId: string; itemId: string }>();
+  const { restaurantId, itemId } = useParams();
   const navigate = useNavigate();
   const [selectedPlatform, setSelectedPlatform] = useState<'talabat' | 'noon' | 'careem'>('talabat');
   const [quantity, setQuantity] = useState(1);

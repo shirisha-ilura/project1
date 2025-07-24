@@ -21,11 +21,26 @@ interface FoodItem {
 }
 
 const CategoryPage: React.FC = () => {
-  const { categoryName } = useParams<{ categoryName: string }>();
+  const { categoryName } = useParams();
   const navigate = useNavigate();
   const [selectedSort, setSelectedSort] = useState('Sort');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
+
+  // Available categories for navigation
+  const availableCategories = [
+    { name: 'Chicago Deep Pizza', slug: 'pizza', image: '/images/img_frame_45_1.png' },
+    { name: 'Fast Food Combo', slug: 'burger', image: '/images/img_frame_45.png' },
+    { name: 'Grilled Chicken', slug: 'chicken', image: '/images/img_frame_45_228x322.png' },
+    { name: 'Whopper Burger King', slug: 'burger', image: '/images/img_frame_45.png' },
+    { name: 'Chicken', slug: 'chicken', image: '/images/img_unsplash_uc0hzduitwy_2.png' },
+    { name: 'Beef', slug: 'beef', image: '/images/img_unsplash_uc0hzduitwy.png' },
+    { name: 'Shawarma', slug: 'shawarma', image: '/images/img_frame_45_228x322.png' }
+  ];
+
+  const handleCategoryClick = (categorySlug: string) => {
+    navigate(`/category/${categorySlug}`);
+  };
 
   // Category data mapping
   const categoryData: { [key: string]: { title: string; subtitle: string; bgColor: string; image: string } } = {
@@ -40,6 +55,24 @@ const CategoryPage: React.FC = () => {
       subtitle: 'Collection',
       bgColor: 'bg-gradient-to-r from-orange-500 to-orange-600',
       image: '/images/img_frame_45.png'
+    },
+    'chicken': {
+      title: 'Grilled Chicken',
+      subtitle: 'Specials',
+      bgColor: 'bg-gradient-to-r from-yellow-500 to-yellow-600',
+      image: '/images/img_unsplash_uc0hzduitwy_2.png'
+    },
+    'beef': {
+      title: 'Premium Beef',
+      subtitle: 'Delights',
+      bgColor: 'bg-gradient-to-r from-red-600 to-red-700',
+      image: '/images/img_unsplash_uc0hzduitwy.png'
+    },
+    'shawarma': {
+      title: 'Shawarma',
+      subtitle: 'Delights',
+      bgColor: 'bg-gradient-to-r from-amber-500 to-amber-600',
+      image: '/images/img_frame_45_228x322.png'
     },
     'cake': {
       title: 'Sweet Cake',
@@ -82,12 +115,6 @@ const CategoryPage: React.FC = () => {
       subtitle: 'Specials',
       bgColor: 'bg-gradient-to-r from-orange-400 to-orange-500',
       image: '/images/img_unsplash_uc0hzduitwy.png'
-    },
-    'shawarma': {
-      title: 'Shawarma',
-      subtitle: 'Delights',
-      bgColor: 'bg-gradient-to-r from-amber-500 to-amber-600',
-      image: '/images/img_frame_45_228x322.png'
     },
     'coffee': {
       title: 'Coffee &',
@@ -181,6 +208,73 @@ const CategoryPage: React.FC = () => {
       deliveryFee: 'Free delivery',
       discount: '20% off'
     },
+    // Chicken items
+    {
+      id: 'chicken-1',
+      name: 'Grilled Chicken Breast',
+      description: 'Perfectly seasoned grilled chicken',
+      price: '42 AED',
+      originalPrice: '55 AED',
+      rating: 4.7,
+      reviewCount: 278,
+      image: '/images/img_unsplash_uc0hzduitwy_2.png',
+      restaurantName: 'Chicken House',
+      restaurantLogo: '/images/talabat-logo-main.png',
+      category: 'chicken',
+      deliveryTime: '25-35 mins',
+      deliveryFee: 'Free delivery',
+      discount: '24% off'
+    },
+    {
+      id: 'chicken-2',
+      name: 'Chicken Tikka',
+      description: 'Spicy chicken tikka with herbs',
+      price: '38 AED',
+      originalPrice: '48 AED',
+      rating: 4.5,
+      reviewCount: 195,
+      image: '/images/img_unsplash_uc0hzduitwy_2.png',
+      restaurantName: 'Chicken House',
+      restaurantLogo: '/images/noon-logo-main.png',
+      category: 'chicken',
+      deliveryTime: '30-40 mins',
+      deliveryFee: 'Free delivery',
+      discount: '21% off'
+    },
+    // Beef items
+    {
+      id: 'beef-1',
+      name: 'Premium Beef Steak',
+      description: 'Tender beef steak with seasoning',
+      price: '65 AED',
+      originalPrice: '80 AED',
+      rating: 4.8,
+      reviewCount: 167,
+      image: '/images/img_unsplash_uc0hzduitwy.png',
+      restaurantName: 'Steakhouse Grill',
+      restaurantLogo: '/images/careem-logo-main.png',
+      category: 'beef',
+      deliveryTime: '35-45 mins',
+      deliveryFee: 'Free delivery',
+      discount: '19% off'
+    },
+    // Shawarma items
+    {
+      id: 'shawarma-1',
+      name: 'Chicken Shawarma',
+      description: 'Traditional chicken shawarma wrap',
+      price: '28 AED',
+      originalPrice: '35 AED',
+      rating: 4.6,
+      reviewCount: 342,
+      image: '/images/img_frame_45_228x322.png',
+      restaurantName: 'Arabian Delights',
+      restaurantLogo: '/images/talabat-logo-main.png',
+      category: 'shawarma',
+      deliveryTime: '20-30 mins',
+      deliveryFee: 'Free delivery',
+      discount: '20% off'
+    },
     // Cake items
     {
       id: 'cake-1',
@@ -197,8 +291,7 @@ const CategoryPage: React.FC = () => {
       deliveryTime: '40-50 mins',
       deliveryFee: 'Free delivery',
       discount: '29% off'
-    },
-    // Add more items for other categories...
+    }
   ];
 
   // Create extended list to show more items
@@ -252,56 +345,37 @@ const CategoryPage: React.FC = () => {
       
       {/* Category Header with circular food images */}
       <div className="w-full bg-gradient-to-r from-pink-400 via-red-400 to-orange-400 py-6">
-        <div className="flex items-center justify-center gap-4 px-4">
-          {/* Food category circles */}
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">CHICAGO DEEP PIZZA</span>
-          </div>
+        <div className="flex items-center gap-4 px-4 justify-center">
+          {/* Navigation arrows and scrollable categories */}
+          <button className="text-white hover:text-gray-200 transition-colors">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
           
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">FAST FOOD COMBO</span>
-          </div>
+                     <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
+             {/* Food category circles */}
+             {availableCategories.map((category, index) => (
+               <div 
+                 key={index}
+                 onClick={() => handleCategoryClick(category.slug)}
+                 className="flex flex-col items-center gap-2 min-w-max cursor-pointer hover:scale-105 transition-transform duration-200"
+               >
+                 <div className={`w-16 h-16 rounded-full overflow-hidden border-2 shadow-lg ${
+                   categoryName === category.slug ? 'border-yellow-300' : 'border-white'
+                 }`}>
+                   <img src={category.image} alt={category.name} className="w-full h-full object-cover" />
+                 </div>
+                 <span className="text-white text-xs font-bold text-center whitespace-nowrap">{category.name.toUpperCase()}</span>
+               </div>
+             ))}
+           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">GRILLED CHICKEN</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">WHOPPER BURGER KING</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">CHICKEN</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">BEEF</span>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-              <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
-            </div>
-            <span className="text-white text-xs font-bold text-center">SHAWARMA</span>
-          </div>
+          <button className="text-white hover:text-gray-200 transition-colors">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
 
