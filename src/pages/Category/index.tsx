@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
@@ -25,6 +25,8 @@ const CategoryPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedSort, setSelectedSort] = useState('Sort');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(categoryName || 'pizza');
+  const [isLoading, setIsLoading] = useState(false);
   const itemsPerPage = 20;
 
   // Category data mapping
@@ -266,8 +268,8 @@ const CategoryPage: React.FC = () => {
     return extended;
   };
 
-  const currentCategory = categoryData[categoryName || 'pizza'] || categoryData['pizza'];
-  const categoryItems = allFoodItems.filter(item => item.category === (categoryName || 'pizza'));
+  const currentCategory = categoryData[selectedCategory] || categoryData['pizza'];
+  const categoryItems = allFoodItems.filter(item => item.category === selectedCategory);
   const extendedItems = createExtendedItems(categoryItems, 500); // Create 500 items as shown in image
 
   const totalPages = Math.ceil(extendedItems.length / itemsPerPage);
@@ -278,6 +280,26 @@ const CategoryPage: React.FC = () => {
     // Navigate to food item detail page
     navigate(`/food-item/${itemId}`);
   };
+
+  const handleCategoryClick = (category: string) => {
+    setIsLoading(true);
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to first page when changing category
+    // Update URL without page reload
+    navigate(`/category/${category}`, { replace: true });
+    
+    // Simulate loading time for smooth transition
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  };
+
+  // Update selected category when URL parameter changes
+  useEffect(() => {
+    if (categoryName && categoryName !== selectedCategory) {
+      setSelectedCategory(categoryName);
+    }
+  }, [categoryName, selectedCategory]);
 
   const sortOptions = ['Sort', 'Nearest', 'Great Offers', 'Rating 4.0+', 'Previous bought'];
   const filterOptions = ['Nearest', 'Great Offers', 'Rating 4.0+', 'Previous bought'];
@@ -307,54 +329,26 @@ const CategoryPage: React.FC = () => {
           <h2 className="text-white text-center text-lg font-semibold mb-6">Browse Categories</h2>
           <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide pb-2">
             <div className="flex items-center gap-4 min-w-max">
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
+              {Object.entries(categoryData).map(([key, data]) => (
+                <div 
+                  key={key}
+                  onClick={() => handleCategoryClick(key)}
+                  className={`flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-all duration-300 ${
+                    selectedCategory === key ? 'transform scale-110' : ''
+                  }`}
+                >
+                  <div className={`w-20 h-20 rounded-full overflow-hidden border-3 shadow-lg ${
+                    selectedCategory === key ? 'border-yellow-300' : 'border-white'
+                  }`}>
+                    <img src={data.image} alt={data.title} className="w-full h-full object-cover" />
+                  </div>
+                  <span className={`text-xs font-bold text-center max-w-[100px] ${
+                    selectedCategory === key ? 'text-yellow-300' : 'text-white'
+                  }`}>
+                    {data.title.toUpperCase()}
+                  </span>
                 </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICAGO DEEP PIZZA</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">FAST FOOD COMBO</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">GRILLED CHICKEN</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">WHOPPER BURGER KING</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICKEN</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">BEEF</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">SHAWARMA</span>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -372,7 +366,7 @@ const CategoryPage: React.FC = () => {
             </button>
             <span className="text-gray-400">/</span>
             <span className="text-red-600 font-medium capitalize">
-              {categoryName?.replace('-', ' ') || 'Category'}
+              {selectedCategory?.replace('-', ' ') || 'Category'}
             </span>
           </nav>
         </div>
@@ -414,11 +408,11 @@ const CategoryPage: React.FC = () => {
               <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <input 
-                type="text" 
-                placeholder={`Search ${categoryName || 'food'}...`}
-                className="bg-transparent outline-none text-sm text-gray-700 flex-1 placeholder-gray-400"
-              />
+                             <input 
+                 type="text" 
+                 placeholder={`Search ${selectedCategory || 'food'}...`}
+                 className="bg-transparent outline-none text-sm text-gray-700 flex-1 placeholder-gray-400"
+               />
             </div>
           </div>
           
@@ -473,7 +467,32 @@ const CategoryPage: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {currentItems.map((item) => (
+              {isLoading ? (
+                // Loading skeleton
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 animate-pulse">
+                    <div className="h-48 bg-gray-200"></div>
+                    <div className="p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="h-6 bg-gray-200 rounded w-2/3"></div>
+                        <div className="h-6 bg-gray-200 rounded w-12"></div>
+                      </div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2 mb-3"></div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4">
+                          <div className="h-4 bg-gray-200 rounded w-16"></div>
+                          <div className="h-4 bg-gray-200 rounded w-20"></div>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="h-6 bg-gray-200 rounded w-16"></div>
+                        <div className="h-6 bg-gray-200 rounded w-6"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                currentItems.map((item) => (
                 <div 
                   key={item.id}
                   onClick={() => handleItemClick(item.id)}
@@ -545,9 +564,10 @@ const CategoryPage: React.FC = () => {
                         <img src={item.restaurantLogo} alt="delivery platform" className="w-6 h-6" />
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                                     </div>
+                 </div>
+                 ))
+               )}
             </div>
 
             {/* Pagination */}
