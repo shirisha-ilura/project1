@@ -27,75 +27,16 @@ const CategoryPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
-  // Category data mapping
-  const categoryData: { [key: string]: { title: string; subtitle: string; bgColor: string; image: string } } = {
-    'pizza': {
-      title: 'Special Delicious',
-      subtitle: 'Pizza Deals',
-      bgColor: 'bg-gradient-to-r from-red-500 to-red-600',
-      image: '/images/img_frame_45_1.png'
-    },
-    'burger': {
-      title: 'Juicy Burger',
-      subtitle: 'Collection',
-      bgColor: 'bg-gradient-to-r from-orange-500 to-orange-600',
-      image: '/images/img_frame_45.png'
-    },
-    'cake': {
-      title: 'Sweet Cake',
-      subtitle: 'Delights',
-      bgColor: 'bg-gradient-to-r from-pink-500 to-pink-600',
-      image: '/images/img_unsplash_uc0hzduitwy_2.png'
-    },
-    'sub-sandwich': {
-      title: 'Fresh Sub',
-      subtitle: 'Sandwiches',
-      bgColor: 'bg-gradient-to-r from-green-500 to-green-600',
-      image: '/images/img_frame_45.png'
-    },
-    'chowmein': {
-      title: 'Authentic',
-      subtitle: 'Chowmein',
-      bgColor: 'bg-gradient-to-r from-yellow-500 to-yellow-600',
-      image: '/images/img_unsplash_uc0hzduitwy_1.png'
-    },
-    'arabic': {
-      title: 'Arabic',
-      subtitle: 'Cuisine',
-      bgColor: 'bg-gradient-to-r from-purple-500 to-purple-600',
-      image: '/images/img_frame_45_228x322.png'
-    },
-    'chinese': {
-      title: 'Chinese',
-      subtitle: 'Delicacies',
-      bgColor: 'bg-gradient-to-r from-red-600 to-red-700',
-      image: '/images/img_unsplash_uc0hzduitwy_1.png'
-    },
-    'continental': {
-      title: 'Continental',
-      subtitle: 'Cuisine',
-      bgColor: 'bg-gradient-to-r from-blue-500 to-blue-600',
-      image: '/images/img_frame_45.png'
-    },
-    'breakfast': {
-      title: 'Breakfast',
-      subtitle: 'Specials',
-      bgColor: 'bg-gradient-to-r from-orange-400 to-orange-500',
-      image: '/images/img_unsplash_uc0hzduitwy.png'
-    },
-    'shawarma': {
-      title: 'Shawarma',
-      subtitle: 'Delights',
-      bgColor: 'bg-gradient-to-r from-amber-500 to-amber-600',
-      image: '/images/img_frame_45_228x322.png'
-    },
-    'coffee': {
-      title: 'Coffee &',
-      subtitle: 'Beverages',
-      bgColor: 'bg-gradient-to-r from-amber-700 to-amber-800',
-      image: '/images/img_unsplash_uc0hzduitwy.png'
-    }
-  };
+  // Category data for horizontal scroll
+  const horizontalCategories = [
+    { id: 'chicago-deep-pizza', name: 'CHICAGO DEEP PIZZA', image: '/images/img_frame_45_1.png' },
+    { id: 'fast-food-combo', name: 'FAST FOOD COMBO', image: '/images/img_frame_45.png' },
+    { id: 'grilled-chicken', name: 'GRILLED CHICKEN', image: '/images/img_frame_45_228x322.png' },
+    { id: 'whopper-burger-king', name: 'WHOPPER BURGER KING', image: '/images/img_frame_45.png' },
+    { id: 'chicken', name: 'CHICKEN', image: '/images/img_unsplash_uc0hzduitwy_2.png' },
+    { id: 'beef', name: 'BEEF', image: '/images/img_unsplash_uc0hzduitwy.png' },
+    { id: 'shawarma', name: 'SHAWARMA', image: '/images/img_frame_45_228x322.png' }
+  ];
 
   // Sample food items data filtered by category
   const allFoodItems: FoodItem[] = [
@@ -249,7 +190,6 @@ const CategoryPage: React.FC = () => {
       deliveryFee: 'Free delivery',
       discount: '18% off'
     }
-    // Add more items for other categories...
   ];
 
   // Create extended list to show more items
@@ -266,17 +206,20 @@ const CategoryPage: React.FC = () => {
     return extended;
   };
 
-  const currentCategory = categoryData[categoryName || 'pizza'] || categoryData['pizza'];
   const categoryItems = allFoodItems.filter(item => item.category === (categoryName || 'pizza'));
-  const extendedItems = createExtendedItems(categoryItems, 500); // Create 500 items as shown in image
+  const extendedItems = createExtendedItems(categoryItems, 500);
 
   const totalPages = Math.ceil(extendedItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = extendedItems.slice(startIndex, startIndex + itemsPerPage);
 
   const handleItemClick = (itemId: string) => {
-    // Navigate to food item detail page
     navigate(`/food-item/${itemId}`);
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    const urlFriendlyName = categoryId.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/category/${urlFriendlyName}`);
   };
 
   const sortOptions = ['Sort', 'Nearest', 'Great Offers', 'Rating 4.0+', 'Previous bought'];
@@ -301,61 +244,54 @@ const CategoryPage: React.FC = () => {
     <div className="w-full bg-gray-50 flex flex-col items-center min-h-screen">
       <Header />
       
-      {/* Category Header - Horizontal Scrolling Food Categories */}
-      <div className="w-full bg-gradient-to-r from-red-500 via-red-600 to-orange-500 py-8">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-white text-center text-lg font-semibold mb-6">Browse Categories</h2>
-          <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide pb-2">
-            <div className="flex items-center gap-4 min-w-max">
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_1.png" alt="Chicago Deep Pizza" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICAGO DEEP PIZZA</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45.png" alt="Fast Food Combo" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">FAST FOOD COMBO</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_228x322.png" alt="Grilled Chicken" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">GRILLED CHICKEN</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45.png" alt="Whopper Burger King" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">WHOPPER BURGER KING</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_unsplash_uc0hzduitwy_2.png" alt="Chicken" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">CHICKEN</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_unsplash_uc0hzduitwy.png" alt="Beef" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">BEEF</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg">
-                  <img src="/images/img_frame_45_228x322.png" alt="Shawarma" className="w-full h-full object-cover" />
-                </div>
-                <span className="text-white text-xs font-bold text-center max-w-[100px]">SHAWARMA</span>
+      {/* Horizontal Category Header */}
+      <div className="w-full bg-gradient-to-r from-red-500 via-red-600 to-orange-500 py-6 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-32 h-32 border-2 border-white rounded-full"></div>
+          <div className="absolute top-10 right-20 w-20 h-20 border border-white rounded-full"></div>
+          <div className="absolute bottom-0 right-0 w-40 h-40 border-2 border-white rounded-full"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="flex items-center gap-4">
+            {/* Left Arrow */}
+            <button className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            {/* Categories */}
+            <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide pb-2 flex-1">
+              <div className="flex items-center gap-6 min-w-max">
+                {horizontalCategories.map((category) => (
+                  <div
+                    key={category.id}
+                    onClick={() => handleCategoryClick(category.id)}
+                    className="flex flex-col items-center gap-3 cursor-pointer hover:scale-105 transition-transform duration-200"
+                  >
+                    <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-white shadow-lg bg-white">
+                      <img 
+                        src={category.image} 
+                        alt={category.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-white text-xs font-bold text-center max-w-[100px] leading-tight">
+                      {category.name}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
+            
+            {/* Right Arrow */}
+            <button className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -376,15 +312,16 @@ const CategoryPage: React.FC = () => {
             </span>
           </nav>
         </div>
+
         {/* Filters Section */}
-        <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fadeIn">
+        <div className="bg-white p-4 rounded-2xl shadow-sm mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center gap-4">
             {/* Sort Dropdown */}
             <div className="relative">
               <select 
                 value={selectedSort}
                 onChange={(e) => setSelectedSort(e.target.value)}
-                className="appearance-none bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 pr-10 rounded-xl font-medium cursor-pointer hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
+                className="appearance-none bg-white text-red-600 border border-red-200 px-4 py-2 pr-8 rounded-lg font-medium cursor-pointer hover:border-red-300 transition-all duration-300 text-sm"
               >
                 {sortOptions.map(option => (
                   <option key={option} value={option} className="bg-white text-gray-900">
@@ -392,17 +329,17 @@ const CategoryPage: React.FC = () => {
                   </option>
                 ))}
               </select>
-              <svg className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
 
             {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {filterOptions.map(filter => (
                 <button
                   key={filter}
-                  className="px-5 py-2.5 border-2 border-gray-200 rounded-xl text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all duration-300 font-medium"
+                  className="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-600 transition-all duration-300 font-medium text-sm"
                 >
                   {filter}
                 </button>
@@ -410,206 +347,145 @@ const CategoryPage: React.FC = () => {
             </div>
             
             {/* Search */}
-            <div className="ml-auto flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 min-w-[250px]">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="ml-auto flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 min-w-[200px]">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input 
                 type="text" 
-                placeholder={`Search ${categoryName || 'food'}...`}
+                placeholder="Pizza"
                 className="bg-transparent outline-none text-sm text-gray-700 flex-1 placeholder-gray-400"
               />
             </div>
           </div>
-          
-          {/* Quick Stats */}
-          <div className="flex items-center gap-6 mt-4 pt-4 border-t border-gray-100">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">{extendedItems.length} restaurants available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Free delivery on orders above 50 AED</span>
-            </div>
+        </div>
+
+        {/* Restaurant Cards Grid */}
+        <div className="mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {currentItems.map((item) => (
+              <div 
+                key={item.id}
+                onClick={() => handleItemClick(item.id)}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer border border-gray-100"
+              >
+                {/* Restaurant Card Header */}
+                <div className="p-4 pb-2">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-bold text-lg text-gray-900">{item.restaurantName}</h3>
+                    <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {/* Restaurant Info */}
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                    <div className="flex items-center gap-1">
+                      <img src={item.restaurantLogo} alt="delivery platform" className="w-4 h-4" />
+                      <span>{item.price}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg className="w-4 h-4 fill-yellow-400" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span>{item.rating}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-red-500">{item.deliveryTime}</span>
+                    </div>
+                    <span className="font-bold text-gray-900">{item.price}</span>
+                  </div>
+                </div>
+
+                {/* Food Items Horizontal Scroll */}
+                <div className="px-4 pb-4">
+                  <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+                    {/* Generate 3 food items for each restaurant */}
+                    {[1, 2, 3].map((index) => (
+                      <div key={index} className="flex-shrink-0 w-32">
+                        <div className="relative">
+                          <img 
+                            src={item.image} 
+                            alt={`${item.name} ${index}`}
+                            className="w-32 h-24 object-cover rounded-lg"
+                          />
+                          <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                            {index === 1 ? 'Margherita pizza' : index === 2 ? 'Farmhouse Pizza' : 'Pepperoni Pizza'}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* View Full Food Menu */}
+                  <button className="flex items-center justify-between w-full mt-3 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors">
+                    <span>View Full Food Menu</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Main Content Area */}
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Side - Hero Section */}
-          <div className={`w-full lg:w-80 ${currentCategory.bgColor} rounded-2xl p-8 text-white relative overflow-hidden h-fit`}>
-            <div className="relative z-10">
-              <h1 className="text-3xl lg:text-4xl font-bold mb-2 leading-tight">
-                {currentCategory.title}
-              </h1>
-              <h2 className="text-3xl lg:text-4xl font-bold text-yellow-300 mb-6">
-                {currentCategory.subtitle}
-              </h2>
-              <div className="mb-6">
-                <img 
-                  src={currentCategory.image} 
-                  alt={currentCategory.title}
-                  className="w-full lg:w-64 h-48 object-cover rounded-lg shadow-lg"
-                />
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
-                <p className="text-sm text-white/90">
-                  Discover delicious {currentCategory.subtitle.toLowerCase()} from top restaurants near you
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side - Food Items Grid */}
-          <div className="flex-1">
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                Popular {currentCategory.subtitle}
-              </h3>
-              <p className="text-gray-600">
-                {extendedItems.length} restaurants delivering to your area
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {currentItems.map((item) => (
-                <div 
-                  key={item.id}
-                  onClick={() => handleItemClick(item.id)}
-                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-100"
-                >
-                  {/* Restaurant Image */}
-                  <div className="relative h-48">
-                    <img 
-                      src={item.image} 
-                      alt={item.restaurantName}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Discount Badge */}
-                    {item.discount && (
-                      <div className="absolute top-3 left-3 bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        {item.discount}
-                      </div>
-                    )}
-                    {/* Delivery Time Badge */}
-                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-700">
-                      {item.deliveryTime}
-                    </div>
-                  </div>
-
-                  {/* Restaurant Details */}
-                  <div className="p-4">
-                    {/* Restaurant Name and Rating */}
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-lg text-gray-900 truncate pr-2">{item.restaurantName}</h3>
-                      <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded">
-                        <svg className="w-3 h-3 fill-green-600" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                        <span className="text-xs font-bold text-green-700">{item.rating}</span>
-                      </div>
-                    </div>
-                    
-                    {/* Cuisine Type */}
-                    <p className="text-sm text-gray-500 mb-3 capitalize">{item.category} • American</p>
-                    
-                    {/* Delivery Info */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
-                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm text-gray-600">{item.deliveryTime}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                          <span className="text-sm text-gray-600">{item.deliveryFee}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Pricing */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-gray-900">{item.price}</span>
-                        {item.originalPrice && (
-                          <span className="text-sm text-gray-400 line-through">{item.originalPrice}</span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <img src={item.restaurantLogo} alt="delivery platform" className="w-6 h-6" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Pagination */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-600 font-medium">
-                    Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} restaurants
-                  </span>
-                  
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600">Per page:</span>
-                    <select className="border-2 border-gray-200 rounded-lg px-3 py-1 text-sm font-medium focus:border-red-500 focus:outline-none">
-                      <option>20</option>
-                      <option>50</option>
-                      <option>100</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
-                  >
-                    ‹
-                  </button>
-                  
-                  {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
-                    const pageNum = i + 1;
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`w-10 h-10 flex items-center justify-center border-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                          currentPage === pageNum
-                            ? 'bg-gradient-to-r from-red-500 to-red-600 text-white border-red-500 shadow-lg'
-                            : 'border-gray-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600'
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
-                  
-                  <button 
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                    disabled={currentPage === totalPages}
-                    className="w-10 h-10 flex items-center justify-center border-2 border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
-                  >
-                    ›
-                  </button>
-                </div>
-              </div>
+        {/* Pagination */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm mb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-gray-600 font-medium">
+                Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, extendedItems.length)} of {extendedItems.length} restaurants
+              </span>
               
-              {/* Load More Button for Mobile */}
-              <div className="mt-4 sm:hidden">
-                <button className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-xl font-medium hover:from-red-600 hover:to-red-700 transition-all duration-300">
-                  Load More Restaurants
-                </button>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Per page:</span>
+                <select className="border border-gray-200 rounded-lg px-3 py-1 text-sm font-medium focus:border-red-500 focus:outline-none">
+                  <option>20</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
               </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
+              >
+                ‹
+              </button>
+              
+              {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+                const pageNum = i + 1;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`w-10 h-10 flex items-center justify-center border rounded-xl text-sm font-medium transition-all duration-300 ${
+                      currentPage === pageNum
+                        ? 'bg-red-500 text-white border-red-500'
+                        : 'border-gray-200 hover:border-red-300 hover:bg-red-50 hover:text-red-600'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+              
+              <button 
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                className="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:border-red-300 hover:bg-red-50 transition-all duration-300 font-medium"
+              >
+                ›
+              </button>
             </div>
           </div>
         </div>
