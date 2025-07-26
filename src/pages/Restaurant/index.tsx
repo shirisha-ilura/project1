@@ -765,9 +765,11 @@ const RestaurantPage: React.FC = () => {
                   <div className="flex items-center justify-between gap-2">
                     {/* Talabat Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-5 h-5 bg-orange-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">t</span>
-                      </div>
+                      <img 
+                        src="/images/talabat-logo-main.png" 
+                        alt="Talabat" 
+                        className="w-5 h-5 rounded-md object-cover"
+                      />
                       <span className="text-sm font-bold text-gray-900">
                         {item.prices.talabat}$
                       </span>
@@ -775,9 +777,11 @@ const RestaurantPage: React.FC = () => {
                     
                     {/* Noon Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-5 h-5 bg-green-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">n</span>
-                      </div>
+                      <img 
+                        src="/images/noon-logo-main.png" 
+                        alt="Noon" 
+                        className="w-5 h-5 rounded-md object-cover"
+                      />
                       <span className="text-sm font-bold text-gray-900">
                         {item.prices.noon}$
                       </span>
@@ -785,9 +789,11 @@ const RestaurantPage: React.FC = () => {
                     
                     {/* Careem Price */}
                     <div className="flex items-center gap-1">
-                      <div className="w-5 h-5 bg-yellow-500 rounded-md flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">c</span>
-                      </div>
+                      <img 
+                        src="/images/careem-logo-main.png" 
+                        alt="Careem" 
+                        className="w-5 h-5 rounded-md object-cover"
+                      />
                       <span className="text-sm font-bold text-gray-900">
                         {item.prices.careem}$
                       </span>
